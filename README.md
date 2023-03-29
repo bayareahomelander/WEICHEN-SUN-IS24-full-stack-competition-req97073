@@ -32,7 +32,7 @@ npm start
 ```
 This will start the app on `http://localhost:3000`
 
-Note: cross-origin access is enabled, despite the data being stored on `http://localhost:8000`.
+Note: cross-origin access is enabled, despite the data being stored on a different server (`http://localhost:8000`).
 
 4. Open your web browser and navigate to `http://localhost:3000` to view the app.
 
