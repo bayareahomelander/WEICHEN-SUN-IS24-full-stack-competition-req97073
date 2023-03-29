@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, APIRouter
 from typing import List, Optional
 from pydantic import BaseModel
 import random
@@ -7,7 +7,9 @@ import json
 import os
 import uvicorn
 
-app = FastAPI(prefix = "/api")
+app = FastAPI()
+router = APIRouter(prefix="/api")
+app.include_router(router)
 mock_data = []
 
 # Allow cross-origin resource sharing
@@ -74,12 +76,12 @@ if not mock_data:
             json.dump(mock_data, f)
 
 # Display entire JSON file
-@app.get("/products", response_model=List[Product])
+@router.get("/products", response_model=List[Product])
 async def read_products():
     return mock_data
 
 # Display the specified datapoint only by adding {product_id}
-@app.get("/products/{product_id}", response_model=Product)
+@router.get("/products/{product_id}", response_model=Product)
 async def read_product(product_id: int):
     for product in mock_data:
         if product['id'] == product_id:
@@ -87,7 +89,7 @@ async def read_product(product_id: int):
     raise HTTPException(status_code=404, detail="Product not found")
 
 # Create new datapoint and write the new data to the JSON file
-@app.post("/products", response_model=Product)
+@router.post("/products", response_model=Product)
 async def create_product(product: Product):
     product_dict = product.dict()
     product_dict["id"] = len(mock_data) + 1
@@ -99,7 +101,7 @@ async def create_product(product: Product):
     return product_dict
 
 # Delete specified datapoint from the JSON file
-@app.delete("/products/{product_id}")
+@router.delete("/products/{product_id}")
 async def delete_product(product_id: int):
     for i, product in enumerate(mock_data):
         if product["id"] == product_id:
@@ -111,7 +113,7 @@ async def delete_product(product_id: int):
 
 
 # Update the specified datapoint and write it to the JSON file
-@app.put("/products/{product_id}", response_model=Product)
+@router.put("/products/{product_id}", response_model=Product)
 async def update_product(product_id: int, product: Product):
     for index, p in enumerate(mock_data):
         if p["id"] == product_id:
@@ -121,9 +123,3 @@ async def update_product(product_id: int, product: Product):
                 json.dump(mock_data, f)
             return product
     raise HTTPException(status_code=404, detail="Product not found")
-    
-# Optional, FastAPI runs on localhost:8000 by default. Uncomment this block if you want it to run on localhost:3000
-'''
-if '__name__' == '__main__':
-    uvicorn.run(app, host="localhost", port=3000)
-'''
