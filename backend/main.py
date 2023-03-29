@@ -10,6 +10,7 @@ import uvicorn
 app = FastAPI()
 mock_data = []
 
+# Allow cross-origin resource sharing
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -17,15 +18,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Initialize data model
 class Product(BaseModel):
     id: int
     product_name: str
-    scrum_master: Optional[str]
+    scrum_master: str
     product_owner: str
-    developer_names: List[str]
+    developer_names: List[str] # This is wrapped in a list since there would be up to 5 names
     start_date: str
     methodology: str
 
+# High level overview: the function first checks if there exists a data file. If the file does exist, read the file; else create a new one
 def generate_mock_data(num_products: int) -> List[dict]:
     data_file = "data.json"
     if os.path.exists(data_file):
@@ -37,21 +40,22 @@ def generate_mock_data(num_products: int) -> List[dict]:
             product = {
                 "id": i,
                 "product_name": f"Product {i}",
-                "scrum_master": random.choice(['Scrum Master 1', 'Scrum Master 2', 'Scrum Master 3', 'Scrum Master 4', 'n/a']),
+                "scrum_master": random.choice(['Scrum Master 1', 'Scrum Master 2', 'Scrum Master 3', 'n/a']), # Randomly select from one of four
                 "product_owner": f"Product Owner {i}",
-                "developer_names": [f"Developer {j}" for j in range(1, random.randint(2, 6))],
+                "developer_names": [f"Developer {j}" for j in range(1, random.randint(2, 6))], # Randomly generate one to five names
                 "start_date": f"2022-{random.randint(1, 12):02d}-{random.randint(1, 28):02d}",
-                "methodology": random.choice(["Agile", "Waterfall"])
+                "methodology": random.choice(["Agile", "Waterfall"]) # Randomly select from one of two
             }
             data.append(product)
 
         with open(data_file, "w") as f:
-            json.dump(data, f)
+            json.dump(data, f) # Serialize the object into a JSON formatted string, then write it to a file-like object
 
     return data
 
-mock_data = generate_mock_data(40)
+mock_data = generate_mock_data(40) # Generate 40 datapoints
 
+# This code block ensures that mock_data is always available for use, either by loading it from a file, or generating it on the fly
 if not mock_data:
     try:
         with open('data.json', 'r') as f:
@@ -61,10 +65,12 @@ if not mock_data:
         with open('data.json', 'w') as f:
             json.dump(mock_data, f)
 
+# Display entire JSON file
 @app.get("/products", response_model=List[Product])
 async def read_products():
     return mock_data
 
+# Display the specified datapoint only by adding {product_id}
 @app.get("/products/{product_id}", response_model=Product)
 async def read_product(product_id: int):
     for product in mock_data:
@@ -72,18 +78,19 @@ async def read_product(product_id: int):
             return product
     raise HTTPException(status_code=404, detail="Product not found")
 
+# Create new datapoint and write the new data to the JSON file
 @app.post("/products", response_model=Product)
 async def create_product(product: Product):
     product_dict = product.dict()
     product_dict["id"] = len(mock_data) + 1
     mock_data.append(product_dict)
-
-    # write the new data to the JSON file
+    
     with open("data.json", "w") as f:
         json.dump(mock_data, f)
 
     return product_dict
 
+# Delete specified datapoint from the JSON file
 @app.delete("/products/{product_id}")
 async def delete_product(product_id: int):
     for i, product in enumerate(mock_data):
@@ -95,12 +102,13 @@ async def delete_product(product_id: int):
     raise HTTPException(status_code=404, detail="Product not found")
 
 
+# Update the specified datapoint and write it to the JSON file
 @app.put("/products/{product_id}", response_model=Product)
 async def update_product(product_id: int, product: Product):
     for index, p in enumerate(mock_data):
         if p["id"] == product_id:
             mock_data[index] = product.dict()
-            # write the updated data to the JSON file
+
             with open("data.json", "w") as f:
                 json.dump(mock_data, f)
             return product
