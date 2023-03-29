@@ -32,7 +32,7 @@ npm install
 ```bash
 npm start
 ```
-Note: CORS is enabled in the backend code, so you can still access the data stored in the API once you have the backend fired up, despite the API being stored on a different server (`http://localhost:8000`).
+Note: CORS is enabled, so you can still access the data stored in the API once you have the backend fired up, despite the API being stored on a different server (`http://localhost:8000`).
 
 4. Open your web browser and navigate to `http://localhost:3000` to view the app.
 
