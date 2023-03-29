@@ -51,7 +51,7 @@ Once you have installed the required libraries, create a new terminal window. Yo
 ```bash
 cd WEICHEN-SUN-IS24-full-stack-competition-req97073/backend/uvicorn main:app --reload
 ```
-This will start the web service on http://localhost:8000. You can then access the API and its data using a web browser or a tool like Postman. Data should display on the frontend after page refresh.
+This will start the web service on http://localhost:8000. You can then access the API and its data using a web browser. Data should display on the frontend after page refresh.
 
 ## **Endpoints**
 `GET /products`: returns a list of all products in the JSON file.
