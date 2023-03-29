@@ -27,8 +27,13 @@ class Product(BaseModel):
     developer_names: List[str] # This is wrapped in a list since there would be up to 5 names
     start_date: str
     methodology: str
+        
+# Randomly generate a list of developer names
+def random_name_list(names):
+    num_names = random.randint(1,5)
+    return random.sample(names, num_names)
 
-# High level overview: the function first checks if there exists a data file. If the file does exist, read the file; else create a new one
+# The function first checks if there exists a data file. If the file does exist, read the file; else create a new one
 def generate_mock_data(num_products: int) -> List[dict]:
     data_file = "data.json"
     if os.path.exists(data_file):
@@ -36,13 +41,16 @@ def generate_mock_data(num_products: int) -> List[dict]:
             data = json.load(f)
     else:
         data = []
+        names = ["Alice", "Bob", "Charlie", "Dave", "Eve"]
+        num_devs = random.randint(1,5)
+        
         for i in range(1, num_products + 1):
             product = {
                 "id": i,
                 "product_name": f"Product {i}",
-                "scrum_master": random.choice(['Scrum Master 1', 'Scrum Master 2', 'Scrum Master 3', 'n/a']), # Randomly select from one of four
+                "scrum_master": random.choice(['John', 'Appleseed', 'Paco', 'n/a']), # Randomly select from one of four
                 "product_owner": f"Product Owner {i}",
-                "developer_names": [f"Developer {j}" for j in range(1, random.randint(2, 6))], # Randomly generate one to five names
+                "developer_names": random_name_list(names)[:num_devs], # Randomly generate one to five names
                 "start_date": f"2022-{random.randint(1, 12):02d}-{random.randint(1, 28):02d}",
                 "methodology": random.choice(["Agile", "Waterfall"]) # Randomly select from one of two
             }
