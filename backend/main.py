@@ -113,3 +113,9 @@ async def update_product(product_id: int, product: Product):
                 json.dump(mock_data, f)
             return product
     raise HTTPException(status_code=404, detail="Product not found")
+    
+# Optional, FastAPI runs on localhost:8000 by default. Uncomment this block if you want it to run on localhost:3000
+'''
+if '__name__' == '__main__':
+    uvicorn.run(app, host="localhost", port=3000)
+'''
