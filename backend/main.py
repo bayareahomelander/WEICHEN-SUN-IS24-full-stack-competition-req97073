@@ -7,7 +7,7 @@ import json
 import os
 import uvicorn
 
-app = FastAPI()
+app = FastAPI(prefix = "/api")
 mock_data = []
 
 # Allow cross-origin resource sharing
