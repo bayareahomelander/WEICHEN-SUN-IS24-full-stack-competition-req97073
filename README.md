@@ -38,7 +38,15 @@ Note: cross-origin access is enabled, despite the data being stored on a differe
 
 ### Backend
 To run the code, you need to install the required libraries first. You can do this using pip, by running the following command in your terminal:
-`pip install fastapi uvicorn pydantic`
+```bash
+pip3 install fastapi
+```
+```bash
+pip3 install uvicorn
+```
+```bash
+pip3 install pydantic
+```
 
 Once you have installed the required libraries, you can run the code by executing the following command:
 `uvicorn main:app --reload`
