@@ -22,7 +22,7 @@ To launch the app in your environment, follow these steps:
 git clone https://github.com/bayareahomelander/WEICHEN-SUN-IS24-full-stack-competition-req97073.git
 ```
 ```bash
-cd WEICHEN-SUN-IS24-full-stack-competition-req97073
+cd WEICHEN-SUN-IS24-full-stack-competition-req97073/frontend
 ```
 2. Install npm:
 ```bash
