@@ -105,6 +105,3 @@ async def update_product(product_id: int, product: Product):
                 json.dump(mock_data, f)
             return product
     raise HTTPException(status_code=404, detail="Product not found")
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=3000)
