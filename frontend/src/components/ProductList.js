@@ -134,7 +134,7 @@ function ProductList() {
         </thead>
         <tbody>
           {filteredProducts.map(product => (
-            <React.Fragment key={product.id}> // This allows for multiple sibling elements to be returned without adding an extra parent element to the DOM
+            <React.Fragment key={product.id}>
               {editingProduct && editingProduct.id === product.id ? (
                   <EditProduct
                   product={product}
