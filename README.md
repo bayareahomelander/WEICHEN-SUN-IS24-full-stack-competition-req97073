@@ -24,7 +24,7 @@ git clone https://github.com/bayareahomelander/WEICHEN-SUN-IS24-full-stack-compe
 ```bash
 cd WEICHEN-SUN-IS24-full-stack-competition-req97073
 ```
-2. Install npm (Skip if already installed):
+2. Install npm:
 ```bash
 npm install
 ```
