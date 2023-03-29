@@ -3,15 +3,27 @@ import AddProduct from './AddProduct';
 import EditProduct from './EditProduct';
 
 function ProductList() {
+   // State variable intialized to an empty array, will be used to store a list of product objects
   const [products, setProducts] = useState([]);
+  
+  // State variable intialized to `null`, will be used to keep track of the product being edited
   const [editingProduct, setEditingProduct] = useState(null);
+  
+  // State variable intialized to `0`, will be used to keep track of the total number of products
   const [totalProducts, setTotalProducts] = useState(0);
+  
+  // State variable intialized to `0`, will be used to total number of products in which has a Scrum Master in it
   const [totalScrumMaster, setTotalScrumMaster] = useState(0);
+  
+  // State variable intialized to an empty string, will be used to store current search query for filtering
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // State variable intialized to an empty string, will be used to store for filtering developer names
   const [developerSearchQuery, setDeveloperSearchQuery] = useState('');
 
 
   useEffect(() => {
+    // Send a GET request to the API to retrieve a list of product objects in JSON format
     fetch('http://localhost:8000/products', {
       headers: {
         'Accept': 'application/json'
@@ -19,6 +31,7 @@ function ProductList() {
     })
       .then(response => response.json())
       .then(data => {
+        // Retrieved data is then passed to the state variable using their corresponding setter functions
         setProducts(data);
         setTotalProducts(data.length);
         setTotalScrumMaster(data.filter(product => product.scrum_master !== 'n/a').length);
@@ -29,19 +42,23 @@ function ProductList() {
     setTotalScrumMaster(products.filter(product => product.scrum_master !== 'n/a').length);
   }, [products]);
 
+  // Take a newProduct object as input and add the input to the products state array, also increment the totalProducts state variable by 1
   function handleAddProduct(newProduct) {
     setProducts((prevProducts) => [...prevProducts, newProduct]);
     setTotalProducts(prevTotalProducts => prevTotalProducts + 1);
   }
 
+  // Take a product object as input and set it as the editingProduct state variable
   function handleEditClick(product) {
     setEditingProduct(product);
   }
 
+  // Cancel any ongoing product editing
   function handleEditCancel() {
     setEditingProduct(null);
   }
 
+  // Handle the saving of edited product data, update corresponding state variables, and re-render the component to reflect the changes
   function handleEditSave(editedProduct) {
     setProducts(prevProducts =>
       prevProducts.map(product =>
@@ -49,8 +66,10 @@ function ProductList() {
       )
     );
   
+    // Set the editingProduct state variable to null, effectively canceling any ongoing product editing
     setEditingProduct(null);
   
+    // Update Scrum Master count
     setTotalScrumMaster(prevTotalScrumMaster => {
       const changedProduct = products.find(
         product => product.id === editedProduct.id
@@ -66,6 +85,7 @@ function ProductList() {
     });
   }  
 
+  // Take an event object as input (triggered by a change in search bar), update `searchQuery` with the value of the input field
   function handleSearchQueryChange(event) {
     setSearchQuery(event.target.value);
   }
@@ -74,6 +94,7 @@ function ProductList() {
     setProducts(prevProducts => prevProducts.filter(product => product.id !== deletedProductId));
   }  
 
+  // Check if each product object has a scrum_master/developer_names value that includes the searchQuery value and re-render the table
   const filteredProducts = products.filter(
     (product) =>
       product.scrum_master.toLowerCase().includes(searchQuery.toLowerCase()) &&
@@ -82,6 +103,7 @@ function ProductList() {
       )
   );  
 
+  
   function handleDeveloperSearchQueryChange(event) {
     setDeveloperSearchQuery(event.target.value);
   }
@@ -112,7 +134,7 @@ function ProductList() {
         </thead>
         <tbody>
           {filteredProducts.map(product => (
-            <React.Fragment key={product.id}>
+            <React.Fragment key={product.id}> // This allows for multiple sibling elements to be returned without adding an extra parent element to the DOM
               {editingProduct && editingProduct.id === product.id ? (
                   <EditProduct
                   product={product}
@@ -120,7 +142,7 @@ function ProductList() {
                   onCancel={handleEditCancel}
                   onDelete={handleDeleteProduct}
                   productID = {product.id}
-                />
+                /> // Generate a table of filtered elements, with an editing form when Edit button is clicked. Once submitted, the new data is then saved to the server and the component is re-rendered.
               ) : (
                 <tr>
                   <td>{product.id}</td>
