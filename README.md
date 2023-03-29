@@ -49,7 +49,9 @@ pip3 install pydantic
 ```
 
 Once you have installed the required libraries, you can run the code by executing the following command:
-`uvicorn main:app --reload`
+```bash
+uvicorn main:app --reload
+```
 
 This will start the web service on http://localhost:8000. You can access the web service using a web browser or a tool like Postman.
 
