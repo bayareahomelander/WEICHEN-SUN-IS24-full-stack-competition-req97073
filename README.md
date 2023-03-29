@@ -17,10 +17,12 @@ The code depends on several Python libraries, including:
 
 ### Frontend
 To launch the app in your environment, follow these steps:
-1. Clone this repository and navigate to the `frontend` directory:
+1. Clone the entire repository and navigate to the cloned repository:
 ```bash
 git clone https://github.com/bayareahomelander/WEICHEN-SUN-IS24-full-stack-competition-req97073.git
-cd WEICHEN-SUN-IS24-full-stack-competition-req97073/frontend
+```
+```bash
+cd WEICHEN-SUN-IS24-full-stack-competition-req97073
 ```
 2. Install the dependencies:
 ```bash
