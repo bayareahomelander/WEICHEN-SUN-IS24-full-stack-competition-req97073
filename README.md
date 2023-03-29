@@ -37,7 +37,7 @@ Note: CORS is enabled in the backend code, so you can still access the data stor
 4. Open your web browser and navigate to `http://localhost:3000` to view the app.
 
 ### Backend
-To run the code, you need to install the required libraries first. If you haven't already, you can do this using pip, by running the following commands in your terminal:
+To view with data in the table, you need to install the required libraries first. If you haven't already, you can do this using pip, by running the following commands in your terminal:
 ```bash
 pip3 install fastapi
 ```
@@ -47,11 +47,11 @@ pip3 install uvicorn
 ```bash
 pip3 install pydantic
 ```
-Once you have installed the required libraries, you can run the code by executing the following command:
+Once you have installed the required libraries, create a new terminal window. You can run the code by executing the following command:
 ```bash
-uvicorn main:app --reload
+cd WEICHEN-SUN-IS24-full-stack-competition-req97073//backend/uvicorn main:app --reload
 ```
-This will start the web service on http://localhost:8000. You can access the web service using a web browser or a tool like Postman.
+This will start the web service on http://localhost:8000. You can then access the API and its data using a web browser or a tool like Postman. Data should display on the frontend after page refresh.
 
 ## **Endpoints**
 `GET /products`: returns a list of all products in the JSON file.
