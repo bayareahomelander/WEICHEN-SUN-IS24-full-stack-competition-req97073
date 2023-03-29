@@ -6,17 +6,17 @@ This code is an implementation of a simple web application built with React and 
 
 The code depends on several Python libraries, including:
 
-- `fastapi`: A modern, fast web framework for building APIs
-- `uvicorn`: A lightning-fast ASGI server
-- `pydantic`: A library for data validation and settings management based on Python type annotations
-- `random`: A library for generating random numbers
-- `json`: A library for handling JSON data
-- `os`: A library for interacting with the operating system
+- `fastapi`: a modern, fast web framework for building APIs
+- `uvicorn`: a lightning-fast ASGI server
+- `pydantic`: a library for data validation and settings management based on Python type annotations
+- `random`: a library for generating random numbers
+- `json`: a library for handling JSON data
+- `os`: a library for interacting with the operating system
 
 ## **How to run the code**
 
-### Frontend
 To launch the app in your environment, follow these steps:
+### Frontend
 1. Clone the entire repository and navigate to the cloned repository:
 ```bash
 git clone https://github.com/bayareahomelander/WEICHEN-SUN-IS24-full-stack-competition-req97073.git
@@ -24,22 +24,20 @@ git clone https://github.com/bayareahomelander/WEICHEN-SUN-IS24-full-stack-compe
 ```bash
 cd WEICHEN-SUN-IS24-full-stack-competition-req97073
 ```
-2. Install the dependencies:
+2. Install npm:
 ```bash
 npm install
 ```
-3. Start the development server:
+3. Start the development server. This will start the app on `http://localhost:3000`:
 ```bash
 npm start
 ```
-This will start the app on `http://localhost:3000`
-
-Note: cross-origin access is enabled, despite the data being stored on a different server (`http://localhost:8000`).
+Note: CORS is enabled in the backend code, so you can still access the data stored in the API once you have the backend fired up, despite the API being stored on a different server (`http://localhost:8000`).
 
 4. Open your web browser and navigate to `http://localhost:3000` to view the app.
 
 ### Backend
-To run the code, you need to install the required libraries first. You can do this using pip, by running the following command in your terminal:
+To run the code, you need to install the required libraries first. If you haven't already, you can do this using pip, by running the following commands in your terminal:
 ```bash
 pip3 install fastapi
 ```
@@ -49,12 +47,10 @@ pip3 install uvicorn
 ```bash
 pip3 install pydantic
 ```
-
 Once you have installed the required libraries, you can run the code by executing the following command:
 ```bash
 uvicorn main:app --reload
 ```
-
 This will start the web service on http://localhost:8000. You can access the web service using a web browser or a tool like Postman.
 
 ## **Endpoints**
@@ -104,4 +100,4 @@ The web service uses a middleware provided by the FastAPI framework to enable CO
 The code uses the `HTTPException` class provided by the FastAPI framework to raise exceptions for errors like a product not found. The web service returns the appropriate HTTP status code and a message explaining the error.
 
 ## **Conclusion**
-This code provides a basic example of a web service using the FastAPI framework.\
+This code provides a basic example of a web application using React and the FastAPI framework.
