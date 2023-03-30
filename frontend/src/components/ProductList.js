@@ -24,7 +24,7 @@ function ProductList() {
 
   useEffect(() => {
     // Send a GET request to the API to retrieve a list of product objects in JSON format
-    fetch('http://localhost:3000/api/products', {
+    fetch('http://localhost:8000/products', {
       headers: {
         'Accept': 'application/json'
       }
