@@ -13,7 +13,7 @@ const AddProduct = ({ onAddProduct }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/products')
+    fetch('http://localhost:3000/api/products')
       .then(response => response.json())
       .then(data => setProducts(data))
       .catch(error => console.error(error));
@@ -37,7 +37,7 @@ const AddProduct = ({ onAddProduct }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:8000/products', {
+      const response = await fetch('http://localhost:3000/api/products', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
