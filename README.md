@@ -21,7 +21,7 @@ To launch the app in your environment, follow these steps:
 ```bash
 git clone https://github.com/bayareahomelander/WEICHEN-SUN-IS24-full-stack-competition-req97073.git
 ```
-1. Navigate to the clond repository:
+1. Navigate to the cloned repository:
 ```bash
 cd WEICHEN-SUN-IS24-full-stack-competition-req97073/frontend
 ```
