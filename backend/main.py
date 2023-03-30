@@ -1,6 +1,5 @@
-from fastapi import FastAPI, HTTPException, APIRouter
-from fastapi.staticfiles import StaticFiles
-from typing import List, Optional
+from fastapi import FastAPI, HTTPException
+from typing import List
 from pydantic import BaseModel
 import random
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,22 +7,7 @@ import json
 import os
 import uvicorn
 
-# Get the current script's directory
-script_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Construct the paths to the frontend directories
-addProduct_dir = os.path.join(script_dir, "/WEICHEN-SUN-IS24-full-stack-competition-req97073/frontend/src/components/AddProduct.js")
-editProduct_dir = os.path.join(script_dir, "/WEICHEN-SUN-IS24-full-stack-competition-req97073/frontend/src/components/EditProduct.js")
-productList_dir = os.path.join(script_dir, "/WEICHEN-SUN-IS24-full-stack-competition-req97073/frontend/src/components/ProductList.js")
-
 app = FastAPI()
-
-# Mount the frontend directories
-app.mount("/addProduct", StaticFiles(directory=addProduct_dir), name="addProduct")
-app.mount("/editProduct", StaticFiles(directory=editProduct_dir), name="editProduct")
-app.mount("/productList", StaticFiles(directory=productList_dir), name="productList")
-
-router = APIRouter(prefix="/api")
 mock_data = []
 
 # Allow cross-origin resource sharing
@@ -90,12 +74,12 @@ if not mock_data:
             json.dump(mock_data, f)
 
 # Display entire JSON file
-@router.get("/products", response_model=List[Product])
+@app.get("/products", response_model=List[Product])
 async def read_products():
     return mock_data
 
 # Display the specified datapoint only by adding {product_id}
-@router.get("/api/products/{product_id}", response_model=Product)
+@app.get("/products/{product_id}", response_model=Product)
 async def read_product(product_id: int):
     for product in mock_data:
         if product['id'] == product_id:
@@ -103,7 +87,7 @@ async def read_product(product_id: int):
     raise HTTPException(status_code=404, detail="Product not found")
 
 # Create new datapoint and write the new data to the JSON file
-@router.post("/api/products", response_model=Product)
+@app.post("/products", response_model=Product)
 async def create_product(product: Product):
     product_dict = product.dict()
     product_dict["id"] = len(mock_data) + 1
@@ -115,7 +99,7 @@ async def create_product(product: Product):
     return product_dict
 
 # Delete specified datapoint from the JSON file
-@router.delete("/api/products/{product_id}")
+@app.delete("/products/{product_id}")
 async def delete_product(product_id: int):
     for i, product in enumerate(mock_data):
         if product["id"] == product_id:
@@ -127,7 +111,7 @@ async def delete_product(product_id: int):
 
 
 # Update the specified datapoint and write it to the JSON file
-@router.put("/api/products/{product_id}", response_model=Product)
+@app.put("/products/{product_id}", response_model=Product)
 async def update_product(product_id: int, product: Product):
     for index, p in enumerate(mock_data):
         if p["id"] == product_id:
@@ -137,5 +121,3 @@ async def update_product(product_id: int, product: Product):
                 json.dump(mock_data, f)
             return product
     raise HTTPException(status_code=404, detail="Product not found")
-    
-app.include_router(router)
