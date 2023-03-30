@@ -9,7 +9,6 @@ import uvicorn
 
 app = FastAPI()
 router = APIRouter(prefix="/api")
-app.include_router(router)
 mock_data = []
 
 # Allow cross-origin resource sharing
@@ -123,3 +122,5 @@ async def update_product(product_id: int, product: Product):
                 json.dump(mock_data, f)
             return product
     raise HTTPException(status_code=404, detail="Product not found")
+    
+app.include_router(router)
