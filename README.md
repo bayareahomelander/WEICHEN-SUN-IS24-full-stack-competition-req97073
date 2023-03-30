@@ -17,10 +17,11 @@ The code depends on several Python libraries, including:
 
 To launch the app in your environment, follow these steps:
 ### Frontend
-1. Clone the entire repository and navigate to the cloned repository:
+0. Clone the entire repository:
 ```bash
 git clone https://github.com/bayareahomelander/WEICHEN-SUN-IS24-full-stack-competition-req97073.git
 ```
+1. Navigate to the clond repository:
 ```bash
 cd WEICHEN-SUN-IS24-full-stack-competition-req97073/frontend
 ```
@@ -34,7 +35,7 @@ npm start
 ```
 Note: CORS is enabled, so you can still access the data stored in the API once you have the backend fired up, despite the API being stored on a different server (`http://localhost:8000`).
 
-4. Open your web browser and navigate to `http://localhost:3000` to view the app.
+4. Open your web browser and navigate to `http://localhost:3000` to view the app. Page will be without data if backend is not up.
 
 ### Backend
 To view with data in the table, you need to install the required libraries first. If you haven't already, you can do this using pip, by running the following commands in your terminal:
@@ -47,9 +48,13 @@ pip3 install uvicorn
 ```bash
 pip3 install pydantic
 ```
-Once you have installed the required libraries, create a new terminal window. You can run the code by executing the following command:
+Once you have installed the required libraries, create a new terminal window, navigate to the `backend` folder using the following command:
 ```bash
-cd WEICHEN-SUN-IS24-full-stack-competition-req97073/backend/uvicorn main:app --reload
+cd WEICHEN-SUN-IS24-full-stack-competition-req97073/backend
+```
+Run the code by excuting the following command:
+```bash
+uvicorn main:app --reload
 ```
 This will start the web service on http://localhost:8000. You can then access the API and its data using a web browser. Data should display on the frontend after page refresh.
 
