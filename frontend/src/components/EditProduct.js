@@ -24,7 +24,7 @@ function EditProduct(props) {
 
   async function handleSaveClick() {
     try { // Send a PUT request to the API
-      const response = await fetch(`http://localhost:3000/api/products/${productID}`, {
+      const response = await fetch(`http://localhost:8000/products/${productID}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editedProduct)
@@ -45,7 +45,7 @@ function EditProduct(props) {
 
   async function handleDeleteClick() { // Send a DELETE request to the server to delete the product with the specified productID
     try {
-      const response = await fetch(`http://localhost:3000/api/products/${productID}`, {
+      const response = await fetch(`http://localhost:8000/products/${productID}`, {
         method: 'DELETE',
       });
   
