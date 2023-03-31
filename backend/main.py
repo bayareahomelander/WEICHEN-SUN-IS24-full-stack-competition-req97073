@@ -42,9 +42,9 @@ def generate_mock_data(num_products: int) -> List[dict]:
     else:
         data = []
         names = ["Alice", "Bob", "Charlie", "Dave", "Eve"]
-        num_devs = random.randint(1,5)
         
         for i in range(1, num_products + 1):
+            num_devs = random.randint(1,5) # Moved this inside the for loop to generate a new number of devs for each product
             product = {
                 "id": i,
                 "product_name": f"Product {i}",
