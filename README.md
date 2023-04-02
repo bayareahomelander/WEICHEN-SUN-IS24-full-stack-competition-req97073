@@ -12,6 +12,7 @@ The code depends on several Python libraries, including:
 - `random`: a library for generating random numbers
 - `json`: a library for handling JSON data
 - `os`: a library for interacting with the operating system
+- `typing`: a built-in Python module for adding type hints and annotations
 
 ## **How to run the code**
 
