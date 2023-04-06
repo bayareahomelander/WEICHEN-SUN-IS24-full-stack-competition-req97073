@@ -49,6 +49,9 @@ pip3 install uvicorn
 ```bash
 pip3 install pydantic
 ```
+```bash
+pip3 install typing
+```
 Once you have installed the required libraries, create a new terminal window, navigate to the `backend` folder using the following command:
 ```bash
 cd WEICHEN-SUN-IS24-full-stack-competition-req97073/backend
